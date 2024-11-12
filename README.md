@@ -1,6 +1,5 @@
-# GrafanaDashboard
-Components
-```mermaid 
+```mermaid
+%%{init: {'theme': 'default', 'themeVariables': { 'fontFamily': 'trebuchet ms'}}}%% 
 flowchart TD
 
 %% SYSTEM INITIALIZATION AND CONFIGURATION %%
@@ -35,7 +34,7 @@ subgraph "Fetching Emails from Gmail and Initial Processing" [B]
     B4 --> B5[Extract Headers - gmailextract.py] 
     B5 --> B6{Header Data Complete?}
     B6 -- Yes --> B7[Parse Date with Timezone Handling - parse_date()]
-    B6 -- No --> B8[Log Header Incomplete - gmail_filter.log] --> B4
+    B6 -- No -->B8[Log Header Incomplete - gmail_filter.log] --> B4
     B7 --> B9{Within Cutoff Date?}
     B9 -- Yes --> B10[Filter by Sender - gmailextract.py]
     B9 -- No --> B11[Skip Email and Continue - Log Skipped Email]
