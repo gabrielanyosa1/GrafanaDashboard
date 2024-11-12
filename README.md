@@ -3,7 +3,7 @@
 flowchart TD
 
 %% SYSTEM INITIALIZATION AND CONFIGURATION %%
-subgraph "System Initialization and Configuration" [A]
+subgraph A [System Initialization and Configuration]
     A1[Start Process - background_processor.py] --> A2[Load Environment Variables - background_processor.py]
     A2 --> A3{Are Env Variables Loaded?}
     A3 -- Yes --> A4[Initialize Logging with Debug Mode - background_processor.py]
@@ -25,10 +25,9 @@ subgraph "System Initialization and Configuration" [A]
     A19 --> A21[Load Existing Email IDs from JSON and MongoDB - incremental_email_handler.py]
     A21 --> A22[Construct Gmail API Query with Cutoff Date - gmailextract.py]
 end
-```
-```mermaid
+
 %% FETCHING EMAILS FROM GMAIL %%
-subgraph "Fetching Emails from Gmail and Initial Processing" [B]
+subgraph B [Fetching Emails from Gmail and Initial Processing]
     B1[Begin Fetching Emails - gmailextract.py] --> B2{Messages Found?}
     B2 -- No --> B3[End Process - No New Emails]
     B2 -- Yes --> B4[Process Each Email Message - gmailextract.py]
@@ -55,10 +54,9 @@ subgraph "Fetching Emails from Gmail and Initial Processing" [B]
     B17 --> BE3[HTML Cleaning Error - gmail_filter.log]
     B20 --> BE4[Log Normalization Error - gmail_filter.log]
 end
-```
-```mermaid
+
 %% BATCH PROCESSING AND MONGODB STORAGE %%
-subgraph "Batch Processing and MongoDB Storage" [C]
+subgraph C [Batch Processing and MongoDB Storage]
     C1{Batch Size Threshold Reached?}
     C1 -- Yes --> C2[Save Current Batch to JSON - incremental_email_handler.py]
     C2 --> C3[Backup Existing JSON - incremental_email_handler.py]
@@ -78,10 +76,9 @@ subgraph "Batch Processing and MongoDB Storage" [C]
     C16 -- Yes --> C17[Send Progress Notification - background_processor.py]
     C16 -- No --> B1
 end
-```
-```mermaid
+
 %% FINAL VERIFICATION AND MONGODB SYNC %%
-subgraph "Final Verification and MongoDB Sync" [D]
+subgraph D [Final Verification and MongoDB Sync]
     D1[Begin Verification - verify_mongo_data.py]
     D1 --> D2{Is MongoDB in Sync with JSON?}
     D2 -- Yes --> D3[Verification Successful - Log Completion]
@@ -97,10 +94,9 @@ subgraph "Final Verification and MongoDB Sync" [D]
     D11 -- Yes --> D12[Log Successful Sync Completion]
     D11 -- No --> D13[Log Discrepancy Issue - background_processor.log]
 end
-```
-```mermaid
+
 %% ERROR HANDLING BREAKDOWN %%
-subgraph "Detailed Error Handling and Transformation Points" [E]
+subgraph E [Detailed Error Handling and Transformation Points]
     E1[Header Parsing Error - gmailextract.py] --> F1[Log and Skip Message]
     E2[HTML Cleaning Error - decode_and_extract_text()] --> F2[Log Error and Continue]
     E3[Decoding Error - decode_content()] --> F3[Log Error and Use Default Decoding]
