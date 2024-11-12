@@ -1,3 +1,4 @@
+```mermaid
 flowchart TD
 
 %% Initialization and Configuration
@@ -79,3 +80,4 @@ subgraph "Potential Issues and Discrepancies"
     AP_DESC((JSON Save Error: Inconsistent file format, invalid characters))
     AR_DESC((Verification Issues: Missing data or partial saves))
 end
+```
