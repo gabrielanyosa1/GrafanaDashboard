@@ -1,8 +1,7 @@
+### System Initialization and Configuration
 ```mermaid
 %%{init: {'theme': 'default', 'themeVariables': { 'fontFamily': 'trebuchet ms'}}}%%
 flowchart TD
-
-%% SYSTEM INITIALIZATION AND CONFIGURATION %%
 subgraph A [System Initialization and Configuration]
     A1[Start Process - background_processor.py] --> A2[Load Environment Variables - background_processor.py]
     A2 --> A3{Are Env Variables Loaded?}
@@ -25,8 +24,14 @@ subgraph A [System Initialization and Configuration]
     A19 --> A21[Load Existing Email IDs from JSON and MongoDB - incremental_email_handler.py]
     A21 --> A22[Construct Gmail API Query with Cutoff Date - gmailextract.py]
 end
+```
 
-%% FETCHING EMAILS FROM GMAIL %%
+---
+
+### Fetching Emails from Gmail and Initial Processing
+```mermaid
+%%{init: {'theme': 'default', 'themeVariables': { 'fontFamily': 'trebuchet ms'}}}%%
+flowchart TD
 subgraph B [Fetching Emails from Gmail and Initial Processing]
     B1[Begin Fetching Emails - gmailextract.py] --> B2{Messages Found?}
     B2 -- No --> B3[End Process - No New Emails]
@@ -54,8 +59,14 @@ subgraph B [Fetching Emails from Gmail and Initial Processing]
     B17 --> BE3[HTML Cleaning Error - gmail_filter.log]
     B20 --> BE4[Log Normalization Error - gmail_filter.log]
 end
+```
 
-%% BATCH PROCESSING AND MONGODB STORAGE %%
+---
+
+### Batch Processing and MongoDB Storage
+```mermaid
+%%{init: {'theme': 'default', 'themeVariables': { 'fontFamily': 'trebuchet ms'}}}%%
+flowchart TD
 subgraph C [Batch Processing and MongoDB Storage]
     C1{Batch Size Threshold Reached?}
     C1 -- Yes --> C2[Save Current Batch to JSON - incremental_email_handler.py]
@@ -76,8 +87,14 @@ subgraph C [Batch Processing and MongoDB Storage]
     C16 -- Yes --> C17[Send Progress Notification - background_processor.py]
     C16 -- No --> B1
 end
+```
 
-%% FINAL VERIFICATION AND MONGODB SYNC %%
+---
+
+### Final Verification and MongoDB Sync
+```mermaid
+%%{init: {'theme': 'default', 'themeVariables': { 'fontFamily': 'trebuchet ms'}}}%%
+flowchart TD
 subgraph D [Final Verification and MongoDB Sync]
     D1[Begin Verification - verify_mongo_data.py]
     D1 --> D2{Is MongoDB in Sync with JSON?}
@@ -94,8 +111,14 @@ subgraph D [Final Verification and MongoDB Sync]
     D11 -- Yes --> D12[Log Successful Sync Completion]
     D11 -- No --> D13[Log Discrepancy Issue - background_processor.log]
 end
+```
 
-%% ERROR HANDLING BREAKDOWN %%
+---
+
+### Detailed Error Handling and Transformation Points
+```mermaid
+%%{init: {'theme': 'default', 'themeVariables': { 'fontFamily': 'trebuchet ms'}}}%%
+flowchart TD
 subgraph E [Detailed Error Handling and Transformation Points]
     E1[Header Parsing Error - gmailextract.py] --> F1[Log and Skip Message]
     E2[HTML Cleaning Error - decode_and_extract_text()] --> F2[Log Error and Continue]
